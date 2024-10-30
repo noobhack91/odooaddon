@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+    
+
+        <!-- Restrict access to ir.module.module model for Custom Group -->
+
+        <record id="group_lims_inventory_manager" model="res.groups">
+            <field name="name">LIMS Inventory SuperAdmin</field>
+            <field name="category_id" ref="base.module_category_inventory"/>
+        </record>
+        
+        <!-- Define the LIMS Inventory LabAdmin group -->
+        <record id="group_lims_inventory_user" model="res.groups">
+            <field name="name">LIMS Inventory LabAdmin</field>
+            <field name="category_id" ref="base.module_category_inventory"/>
+        </record>
+
+        <!-- Define the LIMS Inventory Purchase group -->
+        <record id="group_lims_inventory_purchase_user" model="res.groups">
+            <field name="name">LIMS Inventory Purchase</field>
+            <field name="category_id" ref="base.module_category_inventory"/>
+        </record>
+        
+    </data>
+</odoo>

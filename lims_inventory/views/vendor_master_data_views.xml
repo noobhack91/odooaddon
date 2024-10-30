@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+   <record id="action_vendor_list" model="ir.actions.act_window">
+        <field name="name">Vendors List</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p>Manage your vendors here.</p>
+        </field>
+    </record>
+
+    <record id="action_vendor_rate_contract" model="ir.actions.act_window">
+        <field name="name">Vendor Rate Contracts</field>
+        <field name="res_model">lims.vendor.rate.contract</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+<record id="view_vendor_rate_contract_tree" model="ir.ui.view">
+        <field name="name">lims.vendor.rate.contract.tree</field>
+        <field name="model">lims.vendor.rate.contract</field>
+        <field name="arch" type="xml">
+            <tree string="Vendor Rate Contracts">
+                <!-- #7span customization -->
+                <field name="show_contract_name" invisible="1"/>
+                <field name="show_vendor_id" invisible="1"/>
+                <field name="show_customer_id" invisible="1"/>
+                <field name="show_start_date" invisible="1"/>
+                <field name="show_end_date" invisible="1"/>
+                <field name="show_currency_id" invisible="1"/>
+                <field name="show_state" invisible="1"/>
+                <field name="show_create_date" invisible="1"/>
+                <!-- Added column invisible -->
+                <field name="name" optional="show" attrs="{'invisible': [('show_contract_name', '=', False)]}"/>
+                <field name="vendor_id" optional="show" attrs="{'invisible': [('show_vendor_id', '=', False)]}"/>
+                <field name="customer_id" optional="show" attrs="{'invisible': [('show_customer_id', '=', False)]}"/>
+                <field name="start_date" optional="show" attrs="{'invisible': [('show_start_date', '=', False)]}"/>
+                <field name="end_date" optional="show" attrs="{'invisible': [('show_end_date', '=', False)]}"/>
+                <field name="currency_id" optional="show" attrs="{'invisible': [('show_currency_id', '=', False)]}"/>
+                <field name="state" optional="show" attrs="{'invisible': [('show_state', '=', False)]}"/>
+                <field name="create_date" readonly="1" optional="show" attrs="{'invisible': [('show_create_date', '=', False)]}"/>
+            </tree>
+        </field>
+</record>
+
+<record id="view_vendor_rate_contract_form" model="ir.ui.view">
+        <field name="name">vendor.rate.contract.form</field>
+        <field name="model">lims.vendor.rate.contract</field>
+        <field name="arch" type="xml">
+            <form string="Vendor Rate Contract">
+                <header>
+                    <button name="action_submit" string="Submit" type="object" states="draft" class="oe_highlight"/>
+                    <button name="action_approve" string="Approve" type="object" states="submitted" class="oe_highlight" groups="base.group_user"/>
+                    <button name="action_reject" string="Reject" type="object" states="submitted" groups="base.group_user"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,submitted,approved,rejected"/>
+                </header>
+
+                <sheet>
+
+                    <group>
+                        <!-- # 7span customization -->
+                        <field name="company_id" invisible="1"/>
+                        <field name="show_contract_name" invisible="1"/>
+                        <field name="show_vendor_id" invisible="1"/>
+                        <field name="show_customer_id" invisible="1"/>
+                        <field name="show_create_date" invisible="1"/>
+                        <field name="show_start_date" invisible="1"/>
+                        <field name="show_end_date" invisible="1"/>
+                        <field name="show_currency_id" invisible="1"/>
+                        <field name="show_product_lines" invisible="1"/>
+                        <field name="show_state" invisible="1"/>
+                        <!-- Added invisible -->
+                        <field name="name" readonly="1" attrs="{'invisible': [('show_contract_name', '=', False)]}"/>
+                        <field name="state" readonly="1" attrs="{'invisible': [('show_state', '=', False)]}"/> <!-- Displaying the state -->
+                    </group>
+                    <group>
+                        <field attrs="{'invisible': [('show_vendor_id', '=', False)]}" name="vendor_id"/>
+                        <field attrs="{'invisible': [('show_customer_id', '=', False)]}" name="customer_id"/>
+                        <field attrs="{'invisible': [('show_create_date', '=', False)]}" name="create_date" readonly="1"/>
+                    </group>
+                    <group>
+                        <field attrs="{'invisible': [('show_start_date', '=', False)]}" name="start_date"/>
+                        <field attrs="{'invisible': [('show_end_date', '=', False)]}" name="end_date"/>
+                        <field attrs="{'invisible': [('show_currency_id', '=', False)]}" name="currency_id"/>
+                    </group>
+                    <group>
+                        <field attrs="{'invisible': [('show_product_lines', '=', False)]}" name="product_line_ids">
+                            <tree editable="bottom">
+                                <field name="product_id" widget="many2one" options="{'no_create': True}"/>
+                                <field name="price"/>
+                            </tree>
+                        </field>
+                    </group>
+                </sheet>
+
+            </form>
+        </field>
+    </record>
+
+
+<record id="action_contract_management" model="ir.actions.act_url">
+            <field name="name">Contract Management</field>
+            <field name="url">/contract_management</field>
+            <field name="target">self</field>
+        </record>
+
+
+    <menuitem id="menu_vendor_master" name="Vendor Master" parent="menu_lims_inventory" sequence="20"/>
+    <menuitem id="menu_inventory_vendor"
+        name="Vendor Master"
+        parent="menu_vendor_master"
+        action="action_vendor_list"
+        sequence="1"/>
+
+    <menuitem id="menu_lims_vendor_rate_contract"
+        name="Vendor Rate Contarct"
+        parent="menu_vendor_master"
+        action="action_vendor_rate_contract"
+        sequence="2"/>
+
+      <menuitem id="submenu_contract_management" name="Manage Contracts" parent="menu_vendor_master"
+                  action="action_contract_management"/>
+    <!-- <menuitem id="menu_maintenance_consultant" name="Maintenance Consultants" parent="menu_lims_inventory_master_data" action="action_maintenance_consultant" sequence="40"/>
+    <menuitem id="menu_laboratory_hub" name="Laboratory Hubs" parent="menu_lims_inventory_master_data" action="action_laboratory_hub" sequence="50"/> -->
+</odoo>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="seq_lims_purchase_indent" model="ir.sequence">
+            <field name="name">LIMS Purchase Indent</field>
+            <field name="code">lims.purchase.indent</field>
+            <field name="prefix">PI/%(year)s/</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+        <record id="seq_lims_purchase_order" model="ir.sequence">
+        <field name="name">Purchase Order</field>
+        <field name="code">lims.purchase.order</field>
+        <field name="prefix">PO/%(year)s/</field>
+        <field name="padding">5</field>
+        <field name="number_next">1</field>
+        <field name="number_increment">1</field>
+        </record>
+        <record id="seq_lims_inward_receipt" model="ir.sequence">
+            <field name="name">LIMS Inward Receipt</field>
+            <field name="code">lims.inward.receipt</field>
+            <field name="prefix">IR/%(year)s/</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="seq_lims_item_transaction" model="ir.sequence">
+            <field name="name">LIMS Item Transaction</field>
+            <field name="code">lims.item.transaction</field>
+            <field name="prefix">TR/%(year)s/</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="seq_lims_maintenance_record" model="ir.sequence">
+            <field name="name">LIMS Maintenance Record</field>
+            <field name="code">lims.maintenance.record</field>
+            <field name="prefix">MR/%(year)s/</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="seq_lims_asset_disposal" model="ir.sequence">
+            <field name="name">LIMS Asset Disposal</field>
+            <field name="code">lims.asset.disposal</field>
+            <field name="prefix">AD/%(year)s/</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+    </data>
+</odoo>

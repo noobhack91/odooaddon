@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_inward_receipt_form" model="ir.ui.view">
+        <field name="name">lims.inward.receipt.form</field>
+        <field name="model">lims.inward.receipt</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="date"/>
+                            <field name="indent_id"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Receipt Lines">
+                            <field name="line_ids">
+                                <tree editable="bottom">
+                                    <field name="product_id"/>
+                                    <field name="quantity"/>
+                                    <field name="uom_id"/>
+                                    <field name="specifications"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_inward_receipt_tree" model="ir.ui.view">
+        <field name="name">lims.inward.receipt.tree</field>
+        <field name="model">lims.inward.receipt</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="date"/>
+                <field name="indent_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_inward_receipt" model="ir.actions.act_window">
+        <field name="name">Grn Receipts</field>
+        <field name="res_model">lims.inward.receipt</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_inward_receipt" name="Receipts" parent="menu_lims_inventory" action="action_inward_receipt" sequence="40"/>
+    <menuitem id="menu_grn_receipt" name="Grn Receipts" parent="menu_inward_receipt" action="action_inward_receipt" sequence="10"/>
+    <menuitem id="menu_grn_receipt" name="Grn Report" parent="menu_inward_receipt" action="action_inward_receipt" sequence="20"/>
+</odoo>

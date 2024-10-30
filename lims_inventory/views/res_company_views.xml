@@ -1,0 +1,26 @@
+<odoo>
+    <record id="view_company_form_inherit_rate_contract" model="ir.ui.view">
+        <field name="name">res.company.form.inherit.rate.contract</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="base.view_company_form"/>
+        <field name="arch" type="xml">
+            <!-- # 7span customization -->
+            <xpath expr="//page[@name='general_info']" position="after">
+                <page name="vendor_rate_contract" string="Vendor Rate Contract Settings" invisible="1">
+                    <group string="Vendor Rate Contract Settings">
+                        <field name="show_contract_name"/>
+                        <field name="show_vendor_id"/>
+                        <field name="show_customer_id"/>
+                        <field name="show_start_date"/>
+                        <field name="show_end_date"/>
+                        <field name="show_currency_id"/>
+                        <field name="show_flag"/>
+                        <field name="show_product_lines"/>
+                        <field name="show_create_date"/>
+                        <field name="show_state"/>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

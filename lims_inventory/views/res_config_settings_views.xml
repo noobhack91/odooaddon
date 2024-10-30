@@ -1,0 +1,114 @@
+<odoo>
+	<record id="res_config_settings_view_form_inherit_lims_inventory" model="ir.ui.view">
+		<field name="name">res.config.settings.view.form.inherit.lims.inventory</field>
+		<field name="model">res.config.settings</field>
+		<field name="inherit_id" ref="purchase.res_config_settings_view_form_purchase"/>
+		<field name="arch" type="xml">
+			<!-- #7span customization -->
+			<xpath expr="//div[@name='matrix_setting_container']" position="after">
+				<h2>Vendor Rate Contract Settings</h2>
+				<div class="row mt16 o_settings_container" name="vendor_rate_contract_settings">
+					<div class="col-12 col-lg-6 o_setting_box">
+						<div class="o_setting_left_pane">
+							<field name="show_contract_name"/>
+						</div>
+						<div class="o_setting_right_pane">
+							<label for="show_contract_name"/>
+							<div class="text-muted">
+								Show Contract Name
+							</div>
+						</div>
+					</div>
+					<div class="col-12 col-lg-6 o_setting_box">
+						<div class="o_setting_left_pane">
+							<field name="show_vendor_id"/>
+						</div>
+						<div class="o_setting_right_pane">
+							<label for="show_vendor_id"/>
+							<div class="text-muted">
+								Show Vendor Name
+							</div>
+						</div>
+					</div>
+					<div class="col-12 col-lg-6 o_setting_box">
+						<div class="o_setting_left_pane">
+							<field name="show_customer_id"/>
+						</div>
+						<div class="o_setting_right_pane">
+							<label for="show_customer_id"/>
+							<div class="text-muted">
+								Show Customer Name
+							</div>
+						</div>
+					</div>
+					<div class="col-12 col-lg-6 o_setting_box">
+						<div class="o_setting_left_pane">
+							<field name="show_start_date"/>
+						</div>
+						<div class="o_setting_right_pane">
+							<label for="show_start_date"/>
+							<div class="text-muted">
+								Show Start Date
+							</div>
+						</div>
+					</div>
+					<div class="col-12 col-lg-6 o_setting_box">
+						<div class="o_setting_left_pane">
+							<field name="show_end_date"/>
+						</div>
+						<div class="o_setting_right_pane">
+							<label for="show_end_date"/>
+							<div class="text-muted">
+								Show End Date
+							</div>
+						</div>
+					</div>
+					<div class="col-12 col-lg-6 o_setting_box">
+						<div class="o_setting_left_pane">
+							<field name="show_currency_id"/>
+						</div>
+						<div class="o_setting_right_pane">
+							<label for="show_currency_id"/>
+							<div class="text-muted">
+								Show Currency
+							</div>
+						</div>
+					</div>
+					<div class="col-12 col-lg-6 o_setting_box">
+						<div class="o_setting_left_pane">
+							<field name="show_product_lines"/>
+						</div>
+						<div class="o_setting_right_pane">
+							<label for="show_product_lines"/>
+							<div class="text-muted">
+								Show Product Lines
+							</div>
+						</div>
+					</div>
+					<div class="col-12 col-lg-6 o_setting_box">
+						<div class="o_setting_left_pane">
+							<field name="show_create_date"/>
+						</div>
+						<div class="o_setting_right_pane">
+							<label for="show_create_date"/>
+							<div class="text-muted">
+								Show Create Date
+							</div>
+						</div>
+					</div>
+					<div class="col-12 col-lg-6 o_setting_box">
+						<div class="o_setting_left_pane">
+							<field name="show_state"/>
+						</div>
+						<div class="o_setting_right_pane">
+							<label for="show_state"/>
+							<div class="text-muted">
+								Show State
+							</div>
+						</div>
+					</div>
+				</div>
+			</xpath>
+		</field>
+	</record>
+</odoo>

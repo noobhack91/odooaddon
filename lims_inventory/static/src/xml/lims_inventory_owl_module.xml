@@ -1,0 +1,10 @@
+<odoo>
+    <template id="lims_inventory_template">
+        <t t-call="web.webclient_bootstrap"/>
+        <t t-call-assets="web.assets_backend" t-css="false"/>
+        <div>
+            <h1>Welcome to LIMS Inventory</h1>
+            <!-- Your OWL component or other content -->
+        </div>
+    </template>
+</odoo>

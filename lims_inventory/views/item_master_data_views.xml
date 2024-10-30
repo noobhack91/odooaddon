@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Inventory Category Views -->
+    <record id="view_inventory_category_form" model="ir.ui.view">
+        <field name="name">lims.inventory.category.form</field>
+        <field name="model">lims.inventory.category</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="parent_id"/>
+                    </group>
+                    <notebook>
+                        <page string="Subcategories">
+                            <field name="child_ids">
+                                <tree editable="bottom">
+                                    <field name="name"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_inventory_category_tree" model="ir.ui.view">
+        <field name="name">lims.inventory.category.tree</field>
+        <field name="model">lims.inventory.category</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="parent_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Inventory Item Views -->
+    <record id="view_inventory_item_form" model="ir.ui.view">
+        <field name="name">lims.inventory.item.form</field>
+        <field name="model">lims.inventory.item</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="category_id"/>
+                            <field name="subcategory_id"/>
+                            <field name="item_type"/>
+                            <field name="is_asset"/>
+                        </group>
+                        <group>
+                            <field name="maintenance_schedule" attrs="{'invisible': [('is_asset', '=', False)]}"/>
+                            <field name="supplier_ids" widget="many2many_tags"/>
+                            <field name="qty_available"/>
+                            <field name="uom_id"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_inventory_item_tree" model="ir.ui.view">
+        <field name="name">lims.inventory.item.tree</field>
+        <field name="model">lims.inventory.item</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="category_id"/>
+                <field name="item_type"/>
+                <field name="qty_available"/>
+                <field name="uom_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Maintenance Consultant Views -->
+    <record id="view_maintenance_consultant_form" model="ir.ui.view">
+        <field name="name">lims.maintenance.consultant.form</field>
+        <field name="model">lims.maintenance.consultant</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="contact"/>
+                        <field name="specialization"/>
+                        <field name="asset_ids" widget="many2many_tags"/>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_maintenance_consultant_tree" model="ir.ui.view">
+        <field name="name">lims.maintenance.consultant.tree</field>
+        <field name="model">lims.maintenance.consultant</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="contact"/>
+                <field name="specialization"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Laboratory Hub Views -->
+    <record id="view_laboratory_hub_form" model="ir.ui.view">
+        <field name="name">lims.laboratory.hub.form</field>
+        <field name="model">lims.laboratory.hub</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="code"/>
+                        <field name="address"/>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_laboratory_hub_tree" model="ir.ui.view">
+        <field name="name">lims.laboratory.hub.tree</field>
+        <field name="model">lims.laboratory.hub</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="code"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Action and Menu Items -->
+    <record id="action_inventory_category" model="ir.actions.act_window">
+        <field name="name">Inventory Categories</field>
+        <field name="res_model">lims.inventory.category</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="action_inventory_item_type" model="ir.actions.act_window">
+        <field name="name">Inventory Item Type</field>
+        <field name="res_model">lims.inventory.item_type</field>
+        <field name="view_mode">tree,form</field>
+        <!-- <field name="domain">[('active', '=', True)]</field> Only show active by default -->
+        <!-- <field name="context">{'search_default_active': 1}</field>  Show Active by default -->
+    </record>
+
+    <record id="action_inventory_item" model="ir.actions.act_window">
+        <field name="name">Inventory Items</field>
+        <field name="res_model">product.product</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+                <p>Manage your item product here.</p>
+        </field>
+    </record>
+
+    <record id="view_product_form_inherit" model="ir.ui.view">
+        <field name="name">product.product.form.inherit</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view"/>
+        <field name="arch" type="xml">
+                <xpath expr="//field[@name='sale_ok']" position="attributes">
+                <attribute name="invisible">1</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='purchase_ok']" position="attributes">
+                <attribute name="invisible">1</attribute>
+                </xpath>
+           
+        </field>
+    </record>
+
+    <record id="action_maintenance_consultant" model="ir.actions.act_window">
+        <field name="name">Maintenance Consultants</field>
+        <field name="res_model">lims.maintenance.consultant</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="action_laboratory_hub" model="ir.actions.act_window">
+        <field name="name">Laboratory Hubs</field>
+        <field name="res_model">lims.laboratory.hub</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="view_inventory_item_type_tree" model="ir.ui.view">
+    <field name="name">lims.inventory.item_type.tree</field>
+    <field name="model">lims.inventory.item_type</field>
+    <field name="arch" type="xml">
+        <tree string="Inventory Item Types">
+            <field name="name"/>
+            <field name="description"/>
+            <!-- <field name="active"/>  Show Active status in Tree View -->
+        </tree>
+    </field>
+</record>
+
+    <!-- Form View for Inventory Item Type -->
+   <record id="view_inventory_item_type_form" model="ir.ui.view">
+    <field name="name">lims.inventory.item_type.form</field>
+    <field name="model">lims.inventory.item_type</field>
+    <field name="arch" type="xml">
+        <form string="Inventory Item Type">
+            <group>
+                <field name="name"/>
+                <field name="description"/>
+                <field name="active"/>  <!-- Add Active field in Form View -->
+            </group>
+        </form>
+    </field>
+</record>
+
+     <record id="action_inventory_item_category" model="ir.actions.act_window">
+            <field name="name">Item Categories</field>
+            <field name="res_model">product.category</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p>Manage your item categories here.</p>
+            </field>
+        </record>
+   <record id="action_vendor_list" model="ir.actions.act_window">
+        <field name="name">Vendors</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p>Manage your vendors here.</p>
+        </field>
+    </record>
+    <record id="action_inventory_vendor_rate" model="ir.actions.act_window">
+        <field name="name">Vendors</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p>Manage your vendors here.</p>
+        </field>
+    </record>
+<record id="view_product_category_form_inherit" model="ir.ui.view">
+        <field name="name">product.category.form.inherit</field>
+        <field name="model">product.category</field>
+        <field name="inherit_id" ref="product.product_category_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='x_custom_field']" position="attributes">
+                <attribute name="invisible">1</attribute> <!-- Makes the field invisible instead of removing it -->
+            </xpath>
+            <xpath expr="//field[@name='property_cost_method']" position="attributes">
+                <attribute name="invisible">1</attribute> <!-- Makes the field invisible instead of removing it -->
+            </xpath>
+                <xpath expr="//field[@name='removal_strategy_id']" position="attributes">
+                <attribute name="invisible">1</attribute> <!-- Makes the field invisible instead of removing it -->
+            </xpath>
+                <xpath expr="//field[@name='property_valuation']" position="attributes">
+                <attribute name="invisible">1</attribute> <!-- Makes the field invisible instead of removing it -->
+            </xpath>
+        </field>
+</record>
+
+    <menuitem id="menu_lims_inventory" name="LIMS Inventory" sequence="1"/>
+
+    <menuitem id="menu_lims_inventory_master_data" name="Item Master" parent="menu_lims_inventory" sequence="2"/>
+    
+    <menuitem id="menu_lims_inventory_item_category" 
+            name="Item Categories" 
+            parent="menu_lims_inventory_master_data" 
+            action="action_inventory_item_category" 
+            sequence="3"/>
+
+    <menuitem id="menu_item_type" name="Item Type" parent="menu_lims_inventory_master_data" action="action_inventory_item_type" sequence="4"/>
+    <menuitem id="menu_inventory_item" name="Items List" parent="menu_lims_inventory_master_data" action="action_inventory_item" sequence="5"/>
+    
+</odoo>

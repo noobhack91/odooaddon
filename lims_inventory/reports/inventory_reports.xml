@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Inventory Item Report -->
+        <record id="report_inventory_item" model="ir.actions.report">
+            <field name="name">Inventory Item Report</field>
+            <field name="model">lims.inventory.item</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">lims_inventory.report_inventory_item_template</field>
+            <field name="report_file">lims_inventory.report_inventory_item_template</field>
+            <field name="binding_model_id" ref="model_lims_inventory_item"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <template id="report_inventory_item_template">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="web.external_layout">
+                        <div class="page">
+                            <h2>Inventory Item Report</h2>
+                            <div class="row mt32 mb32">
+                                <div class="col-3">
+                                    <strong>Name:</strong>
+                                    <p t-field="o.name"/>
+                                </div>
+                                <div class="col-3">
+                                    <strong>Category:</strong>
+                                    <p t-field="o.category_id.name"/>
+                                </div>
+                                <div class="col-3">
+                                    <strong>Item Type:</strong>
+                                    <p t-field="o.item_type"/>
+                                </div>
+                                <div class="col-3">
+                                    <strong>Quantity on Hand:</strong>
+                                    <p t-field="o.qty_available"/>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <strong>Suppliers:</strong>
+                                    <p t-field="o.supplier_ids"/>
+                                </div>
+                            </div>
+                            <div t-if="o.is_asset">
+                                <h3>Asset Information</h3>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <strong>Maintenance Schedule:</strong>
+                                        <p t-field="o.maintenance_schedule"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>
