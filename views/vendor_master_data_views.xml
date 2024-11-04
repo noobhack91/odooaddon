@@ -32,14 +32,14 @@
                 <field name="show_state" invisible="1"/>
                 <field name="show_create_date" invisible="1"/>
                 <!-- Added column invisible -->
-                <field name="name" optional="show" attrs="{'invisible': [('show_contract_name', '=', False)]}"/>
-                <field name="vendor_id" optional="show" attrs="{'invisible': [('show_vendor_id', '=', False)]}"/>
-                <field name="customer_id" optional="show" attrs="{'invisible': [('show_customer_id', '=', False)]}"/>
-                <field name="start_date" optional="show" attrs="{'invisible': [('show_start_date', '=', False)]}"/>
-                <field name="end_date" optional="show" attrs="{'invisible': [('show_end_date', '=', False)]}"/>
-                <field name="currency_id" optional="show" attrs="{'invisible': [('show_currency_id', '=', False)]}"/>
-                <field name="state" optional="show" attrs="{'invisible': [('show_state', '=', False)]}"/>
-                <field name="create_date" readonly="1" optional="show" attrs="{'invisible': [('show_create_date', '=', False)]}"/>
+                <field name="name" groups="lims_inventory.group_show_contract_name" optional="show" attrs="{'invisible': [('show_contract_name', '=', False)]}"/>
+                <field name="vendor_id" groups="lims_inventory.group_show_vendor_name" optional="show" attrs="{'invisible': [('show_vendor_id', '=', False)]}"/>
+                <field name="customer_id" groups="lims_inventory.group_show_customer_name" optional="show" attrs="{'invisible': [('show_customer_id', '=', False)]}"/>
+                <field name="start_date" groups="lims_inventory.group_show_start_date" optional="show" attrs="{'invisible': [('show_start_date', '=', False)]}"/>
+                <field name="end_date" groups="lims_inventory.group_show_end_date" optional="show" attrs="{'invisible': [('show_end_date', '=', False)]}"/>
+                <field name="currency_id" groups="lims_inventory.group_show_currency" optional="show" attrs="{'invisible': [('show_currency_id', '=', False)]}"/>
+                <field name="state" groups="lims_inventory.group_show_state" optional="show" attrs="{'invisible': [('show_state', '=', False)]}"/>
+                <field name="create_date" readonly="1" groups="lims_inventory.group_show_create_date" optional="show" attrs="{'invisible': [('show_create_date', '=', False)]}"/>
             </tree>
         </field>
 </record>
@@ -71,21 +71,21 @@
                         <field name="show_product_lines" invisible="1"/>
                         <field name="show_state" invisible="1"/>
                         <!-- Added invisible -->
-                        <field name="name" readonly="1" attrs="{'invisible': [('show_contract_name', '=', False)]}"/>
-                        <field name="state" readonly="1" attrs="{'invisible': [('show_state', '=', False)]}"/> <!-- Displaying the state -->
+                        <field name="name" groups="lims_inventory.group_show_contract_name" readonly="1" attrs="{'invisible': [('show_contract_name', '=', False)]}"/>
+                        <field name="state" groups="lims_inventory.group_show_state" readonly="1" attrs="{'invisible': [('show_state', '=', False)]}"/> <!-- Displaying the state -->
                     </group>
                     <group>
-                        <field attrs="{'invisible': [('show_vendor_id', '=', False)]}" name="vendor_id"/>
-                        <field attrs="{'invisible': [('show_customer_id', '=', False)]}" name="customer_id"/>
-                        <field attrs="{'invisible': [('show_create_date', '=', False)]}" name="create_date" readonly="1"/>
+                        <field attrs="{'invisible': [('show_vendor_id', '=', False)]}" name="vendor_id" groups="lims_inventory.group_show_vendor_name"/>
+                        <field attrs="{'invisible': [('show_customer_id', '=', False)]}" name="customer_id" groups="lims_inventory.group_show_customer_name"/>
+                        <field attrs="{'invisible': [('show_create_date', '=', False)]}" name="create_date" groups="lims_inventory.group_show_create_date" readonly="1"/>
                     </group>
                     <group>
-                        <field attrs="{'invisible': [('show_start_date', '=', False)]}" name="start_date"/>
-                        <field attrs="{'invisible': [('show_end_date', '=', False)]}" name="end_date"/>
-                        <field attrs="{'invisible': [('show_currency_id', '=', False)]}" name="currency_id"/>
+                        <field attrs="{'invisible': [('show_start_date', '=', False)]}" name="start_date" groups="lims_inventory.group_show_start_date"/>
+                        <field attrs="{'invisible': [('show_end_date', '=', False)]}" name="end_date" groups="lims_inventory.group_show_end_date"/>
+                        <field attrs="{'invisible': [('show_currency_id', '=', False)]}" name="currency_id" groups="lims_inventory.group_show_currency"/>
                     </group>
                     <group>
-                        <field attrs="{'invisible': [('show_product_lines', '=', False)]}" name="product_line_ids">
+                        <field attrs="{'invisible': [('show_product_lines', '=', False)]}" name="product_line_ids" groups="lims_inventory.group_show_product_lines">
                             <tree editable="bottom">
                                 <field name="product_id" widget="many2one" options="{'no_create': True}"/>
                                 <field name="price"/>
@@ -123,4 +123,24 @@
                   action="action_contract_management"/>
     <!-- <menuitem id="menu_maintenance_consultant" name="Maintenance Consultants" parent="menu_lims_inventory_master_data" action="action_maintenance_consultant" sequence="40"/>
     <menuitem id="menu_laboratory_hub" name="Laboratory Hubs" parent="menu_lims_inventory_master_data" action="action_laboratory_hub" sequence="50"/> -->
+
+    <record id="lims_inventory_action_settings" model="ir.actions.act_window">
+        <field name="name">Settings</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.config.settings</field>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+        <field name="context">{'module': 'lims_inventory', 'bin_size': False}</field>
+    </record>
+    <menuitem 
+        id="lims_inventory_menu_configuration"
+        name="Configuration"
+        parent="menu_lims_inventory"
+        sequence="99"/>
+    <menuitem 
+        id="lims_inventory_menu_settings"
+        name="Settings"
+        parent="lims_inventory_menu_configuration"
+        action="lims_inventory_action_settings"
+        sequence="1"/>
 </odoo>
